@@ -17,7 +17,7 @@ namespace Note_Taking_Application
         public string selectedNodeText = "";
         public string selectedNodePath = "";
         public string currentWorkingPath = "";
-        private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
+        private static readonly char[] SpecialChars = "!@#$%^&*()~`;:<>?/|{}[]".ToCharArray();
         public Notepad_C_Creator()
         {
             InitializeComponent();
@@ -35,16 +35,12 @@ namespace Note_Taking_Application
             }
             currentWorkingPath = pathCur;
         }
-
-
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             this.selectedNodeText = e.Node.Text;
             TreeNode CurrentNode = e.Node;
             selectedNodePath = CurrentNode.FullPath;
         }
-
-
         private void button4_Click(object sender, EventArgs e)
         {
             if (selectedNodePath == "Notes") { MessageBox.Show("Invalid choice!!"); return; }
@@ -57,7 +53,7 @@ namespace Note_Taking_Application
                     Directory.Delete(currentPath, true);
                     File.Delete(currentPath);
                 }
-                catch(System.Exception exc) { MessageBox.Show(exc.ToString()); } //Do Nothing
+                catch(System.Exception exc) { MessageBox.Show("Error has Occured, Please send the info {0}", exc.ToString()); } 
             }
             else if (dialogResult == DialogResult.No)
             {
