@@ -3,9 +3,9 @@ C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\bin\
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\bin\Debug\Note_Taking_Application.pdb
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.csproj.AssemblyReference.cache
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.csproj.SuggestedBindingRedirects.cache
-C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.Form1.resources
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.Properties.Resources.resources
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.csproj.GenerateResource.cache
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.csproj.CoreCompileInputs.cache
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.exe
 C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.pdb
+C:\Users\ajwpc\source\repos\Note_Taking_Application\Note_Taking_Application\obj\Debug\Note_Taking_Application.Notepad_C_Creator.resources

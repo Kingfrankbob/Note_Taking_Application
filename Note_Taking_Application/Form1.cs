@@ -8,15 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.VisualBasic;
 
 namespace Note_Taking_Application
 {
-    public partial class Form1 : Form
+    public partial class Notepad_C_Creator : Form
     {
         public string selectedNodeText = "";
         public string selectedNodePath = "";
         public string currentWorkingPath = "";
-        public Form1()
+        public Notepad_C_Creator()
         {
             InitializeComponent();
             string pathCur = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes\\";
@@ -60,6 +61,8 @@ namespace Note_Taking_Application
             {
                 return;
             }
+            treeView1.Nodes.Clear();
+            LoadDirectory(currentPath);
 
         }
 
@@ -159,14 +162,95 @@ namespace Note_Taking_Application
 
         private void refresh_Click(object sender, EventArgs e)
         {
+            treeView1.Nodes.Clear();
             txtDirectoryPath.Text = currentWorkingPath;
             LoadDirectory(currentWorkingPath);
         }
 
         private void NewFile_Click(object sender, EventArgs e)
         {
+            string name = "Blank";
+            var Yes = ShowInputDialog(ref name);
+            if(Yes == DialogResult.OK)
+            {
+                MessageBox.Show("Operation Started");
+                if (selectedNodePath == "") selectedNodePath = "Notes";
+                string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\\" + name + ".txt";
+                using (FileStream fs = File.Create(currentPath))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes("This is some text in the file.");
+                    // Add some information to the file.
+                    fs.Write(info, 0, info.Length);
+                }
 
+            }
+            else
+            {
+                MessageBox.Show("Operation Cancelled!");
 
+            }
+            treeView1.Nodes.Clear();
+            LoadDirectory(currentWorkingPath);
+
+        }
+        private static DialogResult ShowInputDialog(ref string input)
+        {
+            System.Drawing.Size size = new System.Drawing.Size(200, 70);
+            Form inputBox = new Form();
+
+            inputBox.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            inputBox.ClientSize = size;
+            inputBox.Text = "Enter new name of file:";
+
+            System.Windows.Forms.TextBox textBox = new TextBox();
+            textBox.Size = new System.Drawing.Size(size.Width - 10, 23);
+            textBox.Location = new System.Drawing.Point(5, 5);
+            textBox.Text = input;
+            inputBox.Controls.Add(textBox);
+
+            Button okButton = new Button();
+            okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+            okButton.Name = "okButton";
+            okButton.Size = new System.Drawing.Size(75, 23);
+            okButton.Text = "&OK";
+            okButton.Location = new System.Drawing.Point(size.Width - 80 - 80, 39);
+            inputBox.Controls.Add(okButton);
+
+            Button cancelButton = new Button();
+            cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            cancelButton.Name = "cancelButton";
+            cancelButton.Size = new System.Drawing.Size(75, 23);
+            cancelButton.Text = "&Cancel";
+            cancelButton.Location = new System.Drawing.Point(size.Width - 80, 39);
+            inputBox.Controls.Add(cancelButton);
+
+            inputBox.AcceptButton = okButton;
+            inputBox.CancelButton = cancelButton;
+
+            DialogResult result = inputBox.ShowDialog();
+            input = textBox.Text;
+            return result;
+        }
+
+        private void NewF_Click(object sender, EventArgs e)
+        {
+            string name = "Blank";
+            var Yes = ShowInputDialog(ref name);
+            if (Yes == DialogResult.OK)
+            {
+                MessageBox.Show("Operation Started");
+                if (selectedNodePath == "") selectedNodePath = "Notes";
+                string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\\" + name + ".txt";
+                Directory.CreateDirectory(currentPath);
+
+            }
+            else
+            {
+                MessageBox.Show("Operation Cancelled!");
+
+            }
+            treeView1.Nodes.Clear();
+            LoadDirectory(currentWorkingPath);
         }
     }
 }

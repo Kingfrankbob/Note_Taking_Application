@@ -1,6 +1,6 @@
 ﻿namespace Note_Taking_Application
 {
-    partial class Form1
+    partial class Notepad_C_Creator
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Notepad_C_Creator));
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.LoadFile = new System.Windows.Forms.Button();
@@ -142,6 +143,7 @@
             this.NewF.Size = new System.Drawing.Size(32, 32);
             this.NewF.TabIndex = 6;
             this.NewF.UseVisualStyleBackColor = true;
+            this.NewF.Click += new System.EventHandler(this.NewF_Click);
             // 
             // textBox2
             // 
@@ -186,7 +188,7 @@
             this.NewFile.UseVisualStyleBackColor = true;
             this.NewFile.Click += new System.EventHandler(this.NewFile_Click);
             // 
-            // Form1
+            // Notepad_C_Creator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -208,7 +210,8 @@
             this.Controls.Add(this.textBox1);
             this.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.Name = "Form1";
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Name = "Notepad_C_Creator";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();
