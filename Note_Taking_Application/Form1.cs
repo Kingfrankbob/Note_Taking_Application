@@ -17,6 +17,7 @@ namespace Note_Taking_Application
         public string selectedNodeText = "";
         public string selectedNodePath = "";
         public string currentWorkingPath = "";
+        private static readonly char[] SpecialChars = "!@#$%^&*()".ToCharArray();
         public Notepad_C_Creator()
         {
             InitializeComponent();
@@ -46,23 +47,24 @@ namespace Note_Taking_Application
 
         private void button4_Click(object sender, EventArgs e)
         {
+            if (selectedNodePath == "Notes") { MessageBox.Show("Invalid choice!!"); return; }
             string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete\n"+currentPath+"\nand all its contents?", "Some Title", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete\n"+currentPath+"\nand all its contents?", "Deletion Warning!!!", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 try
                 {
+                    Directory.Delete(currentPath, true);
                     File.Delete(currentPath);
-                    Directory.Delete(currentPath);
                 }
-                catch { } //Do Nothing
+                catch(System.Exception exc) { MessageBox.Show(exc.ToString()); } //Do Nothing
             }
             else if (dialogResult == DialogResult.No)
             {
                 return;
             }
             treeView1.Nodes.Clear();
-            LoadDirectory(currentPath);
+            LoadDirectory(currentWorkingPath);
 
         }
 
@@ -170,6 +172,8 @@ namespace Note_Taking_Application
         private void NewFile_Click(object sender, EventArgs e)
         {
             string name = "Blank";
+            if (name.IndexOfAny(SpecialChars) != -1) name = cleanString(name);
+            if (selectedNodePath.Contains(".txt")) { MessageBox.Show("Invalid Path!!");  return; }
             var Yes = ShowInputDialog(ref name);
             if(Yes == DialogResult.OK)
             {
@@ -193,7 +197,12 @@ namespace Note_Taking_Application
             LoadDirectory(currentWorkingPath);
 
         }
-        private static DialogResult ShowInputDialog(ref string input)
+        private static string cleanString(string input)
+            { 
+                return new string( input.Where( c => Char.IsLetterOrDigit(c)).ToArray()); 
+            }
+
+            private static DialogResult ShowInputDialog(ref string input)
         {
             System.Drawing.Size size = new System.Drawing.Size(200, 70);
             Form inputBox = new Form();
@@ -238,9 +247,9 @@ namespace Note_Taking_Application
             var Yes = ShowInputDialog(ref name);
             if (Yes == DialogResult.OK)
             {
-                MessageBox.Show("Operation Started");
+                MessageBox.Show("Operation Started Folder");
                 if (selectedNodePath == "") selectedNodePath = "Notes";
-                string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\\" + name + ".txt";
+                string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\\" + name;
                 Directory.CreateDirectory(currentPath);
 
             }

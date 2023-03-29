@@ -73,6 +73,16 @@ namespace Note_Taking_Application.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Check_1_png_1_png {
+            get {
+                object obj = ResourceManager.GetObject("Check-1.png-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DELETE_1_png {
             get {
                 object obj = ResourceManager.GetObject("DELETE-1.png", resourceCulture);
@@ -83,9 +93,39 @@ namespace Note_Taking_Application.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap DELETE_1_png__1_ {
+            get {
+                object obj = ResourceManager.GetObject("DELETE-1.png (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewFolder_1_png {
             get {
                 object obj = ResourceManager.GetObject("NewFolder-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewFolder_1_png_1_png {
+            get {
+                object obj = ResourceManager.GetObject("NewFolder-1.png-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NewFolder_1_png_1_png_1_png {
+            get {
+                object obj = ResourceManager.GetObject("NewFolder-1.png-1.png-1.png", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -106,6 +146,36 @@ namespace Note_Taking_Application.Properties {
         internal static System.Drawing.Bitmap OpenFolder_1_png {
             get {
                 object obj = ResourceManager.GetObject("OpenFolder-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolder_1_png_1_png {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolder-1.png-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolder_1_png_1_png_1_png {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolder-1.png-1.png-1.png", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OpenFolder_1_png_1_png_1_png__1_ {
+            get {
+                object obj = ResourceManager.GetObject("OpenFolder-1.png-1.png-1.png (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

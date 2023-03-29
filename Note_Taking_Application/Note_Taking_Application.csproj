@@ -96,5 +96,26 @@
   <ItemGroup>
     <None Include="Resources\DELETE-1.png.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\DELETE-1.png %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NewFolder-1.png-1.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Check-1.png-1.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFolder-1.png-1.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFolder-1.png-1.png-1.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\OpenFolder-1.png-1.png-1.png %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\NewFolder-1.png-1.png-1.png.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
