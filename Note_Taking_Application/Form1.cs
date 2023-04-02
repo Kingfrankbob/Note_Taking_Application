@@ -9,22 +9,25 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using Microsoft.VisualBasic;
+using CustomGraphFunc;
+using refCalc;
 
 namespace Note_Taking_Application
 {
     public partial class Notepad_C_Creator : Form
     {
-        public string selectedNodeText = "";
-        public string selectedNodePath = "";
-        public string currentWorkingPath = "";
+        private string selectedNodeText = "";
+        private string selectedNodePath = "";
+        private string currentWorkingPath = "";
         private static readonly char[] SpecialChars = "!@#$%^&*()~`;:<>?/|{}[]".ToCharArray();
+        private bool autosave = false;
         public Notepad_C_Creator()
         {
             InitializeComponent();
             string pathCur = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes\\";
             if (Directory.Exists(pathCur))
             {
-                txtDirectoryPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)+"\\Notes";
+                txtDirectoryPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes";
                 LoadDirectory(pathCur);
             }
             else
@@ -37,23 +40,43 @@ namespace Note_Taking_Application
         }
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
+
+            if (autosave)
+            {
+                if (selectedNodePath.Contains(".txt"))
+                {
+                    string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
+                    string[] allLines = textBox1.Lines;
+                    File.WriteAllLines(currentPath, allLines);
+                }
+            }
             this.selectedNodeText = e.Node.Text;
             TreeNode CurrentNode = e.Node;
             selectedNodePath = CurrentNode.FullPath;
+            if (selectedNodeText.Contains(".txt"))
+            {
+                if (!selectedNodeText.Contains('.')) { textBox2.Text = "Invalid"; return; }
+                string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
+                var lines = File.ReadAllLines(currentPath);
+                textBox2.Text = "Title: ";
+                textBox3.Text = selectedNodeText;
+                textBox1.Lines = lines;
+            }
         }
         private void button4_Click(object sender, EventArgs e)
         {
             if (selectedNodePath == "Notes") { MessageBox.Show("Invalid choice!!"); return; }
             string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
-            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete\n"+currentPath+"\nand all its contents?", "Deletion Warning!!!", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete\n" + currentPath + "\nand all its contents?", "Deletion Warning!!!", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 try
                 {
-                    Directory.Delete(currentPath, true);
+                    if (!selectedNodePath.Contains(".txt"))
+                        Directory.Delete(currentPath, true);
                     File.Delete(currentPath);
                 }
-                catch(System.Exception exc) { MessageBox.Show("Error has Occured, Please send the info {0}", exc.ToString()); } 
+                catch (System.Exception exc) { /*MessageBox.Show("Error has Occured, Please send the info" + exc.ToString());*/ }
             }
             else if (dialogResult == DialogResult.No)
             {
@@ -79,7 +102,7 @@ namespace Note_Taking_Application
             {
                 MessageBox.Show("SELECT A DIRECTORY FOR CRYING OUT LOUD!!");
             }
-                
+
         }
 
         private void Select_Click(object sender, EventArgs e)
@@ -140,21 +163,14 @@ namespace Note_Taking_Application
             }
         }
 
-        private void LoadFile_Click(object sender, EventArgs e)
-        {
-            if (!selectedNodeText.Contains('.')) { textBox2.Text = "Invalid"; return; }
-            string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
-            var lines = File.ReadAllLines(currentPath);
-            textBox2.Text = "Title: \n" + selectedNodeText;
-            textBox1.Lines = lines;
-            //MessageBox.Show(currentPath);
-        }
+
 
         private void SaveFile_Click(object sender, EventArgs e)
         {
-            string[] allLines = textBox1.Text.Split('\n');
+            string[] allLines = textBox1.Lines;
             string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath;
             File.WriteAllLines(currentPath, allLines);
+            autosave = false;
 
         }
 
@@ -168,12 +184,11 @@ namespace Note_Taking_Application
         private void NewFile_Click(object sender, EventArgs e)
         {
             string name = "Blank";
-            if (name.IndexOfAny(SpecialChars) != -1) name = cleanString(name);
-            if (selectedNodePath.Contains(".txt")) { MessageBox.Show("Invalid Path!!");  return; }
+            if (selectedNodePath.Contains(".txt")) { MessageBox.Show("Invalid Path!!"); return; }
             var Yes = ShowInputDialog(ref name);
-            if(Yes == DialogResult.OK)
+            if (name.IndexOfAny(SpecialChars) != -1) name = cleanString(name);
+            if (Yes == DialogResult.OK)
             {
-                MessageBox.Show("Operation Started");
                 if (selectedNodePath == "") selectedNodePath = "Notes";
                 string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\\" + name + ".txt";
                 using (FileStream fs = File.Create(currentPath))
@@ -194,11 +209,11 @@ namespace Note_Taking_Application
 
         }
         private static string cleanString(string input)
-            { 
-                return new string( input.Where( c => Char.IsLetterOrDigit(c)).ToArray()); 
-            }
+        {
+            return new string(input.Where(c => Char.IsLetterOrDigit(c)).ToArray());
+        }
 
-            private static DialogResult ShowInputDialog(ref string input)
+        private static DialogResult ShowInputDialog(ref string input)
         {
             System.Drawing.Size size = new System.Drawing.Size(200, 70);
             Form inputBox = new Form();
@@ -257,5 +272,54 @@ namespace Note_Taking_Application
             treeView1.Nodes.Clear();
             LoadDirectory(currentWorkingPath);
         }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void rename_Click(object sender, EventArgs e)
+        {
+            var objU = new unUsed(); if (textBox3.Text.Contains(Finisher.EncDecFate(objU.allNum()))) MessageBox.Show(Finisher.EncDecFate(objU.endCalc()));
+            
+            var previoustext =  (from line in File.ReadAllLines(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath)
+                                where !string.IsNullOrWhiteSpace(line)
+                                select line).ToArray();
+            if (!textBox3.Text.Contains(".txt")) textBox3.Text = textBox3.Text + ".txt";
+            if (textBox3.Text.Contains("."))
+            {
+                var text = textBox3.Text;
+                textBox3.Text = text[0] + ".txt";
+            }
+            if (textBox3.Text.IndexOfAny(SpecialChars) != -1) textBox3.Text = cleanString(textBox3.Text);
+
+
+            //File.Move(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath, Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes\\" + textBox3.Text);
+            //MessageBox.Show("The name is\n" + textBox3.Text + "\nPath to Old\n " + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath + "\nPath to New\n" + Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes\\" + textBox3.Text);
+            
+            File.Delete(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\" + selectedNodePath);
+            string currentPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Notes\\" + textBox3.Text;
+
+            using (FileStream fs = File.Create(currentPath))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    foreach (var line in previoustext)
+                    {
+                        MessageBox.Show(line);
+                        sw.WriteLine(line);
+                    }
+                    sw.Close();
+                }
+            }
+            treeView1.Nodes.Clear();
+            LoadDirectory(currentWorkingPath);
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            autosave = true;
+        }
+
     }
 }
